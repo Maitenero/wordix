@@ -40,7 +40,6 @@ function cargarColeccionPalabras()
 
 //Declaración de variables:
 
-
 //Inicialización de variables:
 
 

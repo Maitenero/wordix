@@ -112,7 +112,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ *Escribe el mansaje de bienvenida que recibe el usuario
+ *@param STRING $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -125,7 +126,9 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ *Verifica que todos los caracteres de una palabra sean letras
+ *@param STRING $cadena
+ *@return BOOLEAN
  */
 function esPalabra($cadena)
 {
@@ -141,7 +144,8 @@ function esPalabra($cadena)
 }
 
 /**
- *  ****COMPLETAR*****
+ *Se encarga de recibir la palabra ingresada por el usuario, y verifica su longitud y caracteres
+ *@return STRING
  */
 function leerPalabra5Letras()
 {

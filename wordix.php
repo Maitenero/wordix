@@ -27,7 +27,10 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ *Solicita entre el numero total de partidas jugadas
+ *@param INT $min
+ *@param INT $max
+ *@return INT
  */
 function solicitarNumeroEntre($min, $max)
 {

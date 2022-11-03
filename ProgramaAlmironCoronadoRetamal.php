@@ -84,6 +84,46 @@ $partida10["puntaje"] = 0;
 $partida10["intento"] = 6; //verificar condición
 */
 
+/* function partidasCargadas(){
+    $partidas = ["GATOS","juan","0","6",
+                "MELON","carlos","0","6",
+                "MUJER","ezequiel", "0","6",
+                "BALAS", "martin","0","6",
+                "BALAS","abi","0","6",
+                "MUJER","carlos","0","6",
+                "CASAS","fernando", "0","6",
+                "MELON","fernando","0","6",
+                "ANIMO","martin","0","6",
+                "BEBES","soho221","0","6",];
+    return $partidas;
+}
+function cargarPartidas($arregloDePartidas){
+    $i = 0;
+    $j = 0;
+    $coleccionPartidas = [];
+    while ($i < count($arregloDePartidas)-3){
+        $datosPartidas = [];
+        $datosPartidas["palabraWordix"] = $arregloDePartidas[$i];
+        $datosPartidas["nombre"] = $arregloDePartidas[$i+1];
+        $datosPartidas["intentos"] = (int)($arregloDePartidas[$i+2]);
+        $datosPartidas["puntaje"] = (int)($arregloDePartidas[$i+3]);
+        $coleccionPartidas[$j] = $datosPartidas;
+        $i += 4; 
+        $j +=1;
+    }
+    return $coleccionPartidas;
+}
+
+$partidasDefault = partidasCargadas();
+$coleccionPartidas1 = cargarPartidas($partidasDefault);
+for($i = 0; $i < count($coleccionPartidas1); $i++){
+    echo $coleccionPartidas1[$i]["palabraWordix"]."\n";  //echos solo para testear el funcionamiento
+    echo $coleccionPartidas1[$i]["nombre"]."\n";
+    echo $coleccionPartidas1[$i]["intentos"]."\n";
+    echo $coleccionPartidas1[$i]["puntaje"]."\n";
+    echo "termina"."\n";
+}
+*/
 
 
 /**************************************/

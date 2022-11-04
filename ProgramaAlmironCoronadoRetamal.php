@@ -9,6 +9,34 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
+/**
+  * Despliega el menu de opcines de Wordix, retorna el numero de la opcion elegida
+  *@return INT
+  */
+  function seleccionarOpcion (){ 
+    /* int $opcionSelec */
+        do{
+            echo "Menu de opciones: \n";
+            echo "\n";
+            echo "1) Jugar Wordix con una palabra elegida \n";
+            echo "2) Jugar Wordix con una palabra aleatoria \n";
+            echo "3) Mostrar una partida \n";
+            echo "4) Mostrar primer partida ganada \n";
+            echo "5) Mostrar resumen de jugador \n";
+            echo "6) Mostrar listado de partidas ordenadas por jugador y por palabra \n";
+            echo "7) Agregar palabra de 5 letras a Wordix \n";
+            echo "8) Salir \n";
+            echo "\n";
+            echo "Ingrese el numero de la opcion deseada: \n";
+            $opcionSelec = trim(fgets(STDIN));
+            echo "\n";
+            if ($opcionSelec != 1 && $opcionSelec !=  2 && $opcionSelec !=  3 && $opcionSelec !=  4 && $opcionSelec !=  5 && $opcionSelec !=  6 &&  $opcionSelec != 7 && $opcionSelec != 8){
+                echo "Seleccione una opcion valida. \n";
+                echo "\n";
+            }
+        } while (!($opcionSelec == 1 || $opcionSelec ==  2 || $opcionSelec ==  3 || $opcionSelec ==  4 || $opcionSelec ==  5 || $opcionSelec ==  6 ||  $opcionSelec == 7 || $opcionSelec == 8));
+        return $opcionSelec;
+    }
 
 /**
  * Obtiene una colección de palabras

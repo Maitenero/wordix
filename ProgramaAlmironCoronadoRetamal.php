@@ -72,6 +72,36 @@ function cargarPartidas(){
         $coleccionPartidas[9] = ["palabraWordix" => "PIANO","nombre"=>"master2000","puntaje"=>0,"intento"=>6];
         return $coleccionPartidas;    
 }
+    /**
+    * busca una partida segun un nroingresado dentro del array coleccion
+    * @param INT $nroIngresado */
+
+    function mostrarPartida($nroPartida){
+        $partidaEncontrada = false;
+        $condicion = true;
+        $i = 0;
+        $coleccionArray = cargarPartidas();
+        while ( $condicion == true && $i<count($coleccionArray)) {
+                if ($i+1 == $nroPartida){
+                    $condicion = false;	
+                    $partidarEncontrada = true;
+                    echo "Partida WORDIX N° ". ($i+1).": palabra ".$coleccionArray[$i]["palabraWordix"]."\n";
+                    echo "Jugador: ".$coleccionArray[$i]["nombre"]."\n";
+                    echo "Puntaje: ".$coleccionArray[$i]["puntaje"]." puntos \n";
+                    // compara si los intentos son 6 y el puntaje 0, no adivinó. El usuario
+                    // siempre va a llegar a los 6 intentos en caso de no adivinar.
+                    if ($coleccionArray[$i]["intento"] == 6 && $coleccionArray[$i]["puntaje"] == 0){
+                        echo "No adivinó la palabra.\n";
+            }	    else{
+                        echo "Adivinó en el intento: ".$coleccionArray[$i]["intento"]."\n";
+            }       
+    }       $i = $i+1;
+    }
+            if($partidaEncontrada == false){
+                    "No se encontró la partida.";
+            }
+    
+    }
 /* function partidasCargadas(){
     $partidas = ["GATOS","juan","0","6",
                 "MELON","carlos","0","6",

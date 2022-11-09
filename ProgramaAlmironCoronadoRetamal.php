@@ -102,6 +102,26 @@ function cargarPartidas(){
             }
     
     }
+    /**
+    * busca una partida segun un nombre ingresado dentro del array coleccion, si la encuentra, devuelve la posición, si no, -1
+    * @param STRING $nombre
+    * @param return int */
+     
+    function buscarPartidaGanada($coleccionPartidas,$nombreAdd){
+        $jugadorEncontrado = false;
+        $condicion = true;
+        $i = 0;
+        $valor = -1;
+        //$coleccionArray = cargarPartidas();
+        while ( $condicion == true && $i<count($coleccionPartidas) ) {
+                if ($coleccionPartidas[$i]["nombre"] == $nombreAdd && $coleccionPartidas[$i]["puntaje"] > 0){
+                    $condicion = false;	
+                    $valor = $i;
+
+        }    $i = $i+1;    
+}
+return $valor;
+}
 /* function partidasCargadas(){
     $partidas = ["GATOS","juan","0","6",
                 "MELON","carlos","0","6",

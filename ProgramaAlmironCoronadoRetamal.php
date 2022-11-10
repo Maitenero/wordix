@@ -9,6 +9,31 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
 /**************************************/
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
+
+ /**
+  * Solicita al usuario un nombre de jugador, que debe comenzar con una letra, retorna el nombre en minusculas
+  * @return STRING
+  */
+  function solicitarJugador (){ 
+    /* */
+    do { 
+        $esValido = true;
+        echo "Ingrese su nombre de usuario utilizando letras y numeros: \n";
+        $nombreUsuario = trim(fgets(STDIN));
+        echo "\n";
+        if (ctype_alpha($nombreUsuario[0])){
+            $nombreUsuario = strtolower($nombreUsuario);
+            $esValido = false;
+            echo "\n";
+        }
+        else {
+            echo "El nombre de usuario debe iniciar con una letra. \n";
+            echo "\n";
+        }
+    }while($esValido);
+    return $nombreUsuario;
+  }  
+
 /**
   * Despliega el menu de opcines de Wordix, retorna el numero de la opcion elegida
   *@return INT
@@ -16,7 +41,7 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
   function seleccionarOpcion (){ 
     /* int $opcionSelec */
         do{
-            $condicion = false;
+            $condicionOpcion = false;
             echo "Menu de opciones: \n";
             echo "\n";
             echo "1) Jugar Wordix con una palabra elegida \n";
@@ -35,9 +60,9 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
             if (!$esValido){
                 echo "Seleccione una opcion valida. \n";
                 echo "\n";
-                $condicion = false; 
+                $condicionOpcion = false; 
             }
-        } while ($condicion);
+        } while ($condicionOpcion);
         return $opcionSelec;
     }
 

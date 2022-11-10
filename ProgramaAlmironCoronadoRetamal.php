@@ -16,6 +16,7 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
   function seleccionarOpcion (){ 
     /* int $opcionSelec */
         do{
+            $condicion = false;
             echo "Menu de opciones: \n";
             echo "\n";
             echo "1) Jugar Wordix con una palabra elegida \n";
@@ -30,11 +31,13 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
             echo "Ingrese el numero de la opcion deseada: \n";
             $opcionSelec = trim(fgets(STDIN));
             echo "\n";
-            if ($opcionSelec != 1 && $opcionSelec !=  2 && $opcionSelec !=  3 && $opcionSelec !=  4 && $opcionSelec !=  5 && $opcionSelec !=  6 &&  $opcionSelec != 7 && $opcionSelec != 8){
+            $esValido = is_int($opcionSelec);
+            if (!$esValido){
                 echo "Seleccione una opcion valida. \n";
                 echo "\n";
+                $condicion = false; 
             }
-        } while (!($opcionSelec == 1 || $opcionSelec ==  2 || $opcionSelec ==  3 || $opcionSelec ==  4 || $opcionSelec ==  5 || $opcionSelec ==  6 ||  $opcionSelec == 7 || $opcionSelec == 8));
+        } while ($condicion);
         return $opcionSelec;
     }
 

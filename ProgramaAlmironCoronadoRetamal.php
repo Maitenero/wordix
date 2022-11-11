@@ -39,7 +39,7 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
   *@return INT
   */
   function seleccionarOpcion (){ 
-    /* int $opcionSelec */
+    /* int $opcionSelec, boolean $condicionOpcion */
         do{
             $condicionOpcion = false;
             echo "Menu de opciones: \n";
@@ -56,11 +56,14 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
             echo "Ingrese el numero de la opcion deseada: \n";
             $opcionSelec = trim(fgets(STDIN));
             echo "\n";
-            $esValido = is_int($opcionSelec);
-            if (!$esValido){
+            if (is_numeric($opcionSelec)){
+                $opcionSelec = $opcionSelec * 1;
+            }    
+            $esEntero = is_int ($opcionSelec);
+            if (!$esEntero || $opcionSelec < 1 || $opcionSelec > 8){
                 echo "Seleccione una opcion valida. \n";
                 echo "\n";
-                $condicionOpcion = false; 
+                $condicionOpcion = true; 
             }
         } while ($condicionOpcion);
         return $opcionSelec;

@@ -39,7 +39,7 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
   *@return INT
   */
   function seleccionarOpcion (){ 
-    /* int $opcionSelec, boolean $condicionOpcion */
+    /* int $opcionSelec, boolean $condicionOpcion, $esEntero */
         do{
             $condicionOpcion = false;
             echo "Menu de opciones: \n";
@@ -57,7 +57,7 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
             $opcionSelec = trim(fgets(STDIN));
             echo "\n";
             if (is_numeric($opcionSelec)){
-                $opcionSelec = $opcionSelec * 1;
+                $opcionSelec = $opcionSelec * 1; //covierte de string numerico a variable numerica, si uso settype o intval no funciona bien.
             }    
             $esEntero = is_int ($opcionSelec);
             if (!$esEntero || $opcionSelec < 1 || $opcionSelec > 8){
@@ -214,9 +214,8 @@ $partida = jugarWordix("MELON", strtolower("MaJo"));
 //PROGRAMA MAIN
 /*
 do {
-    echo "Seleccione una opción: ";
-    $opcion = trim(fgets(STDIN));
-
+    
+    $opcion = seleccionarOpcion ();
     
     switch ($opcion) {
         case 1: 
@@ -241,7 +240,7 @@ do {
         case 4:
             //Mostrar la primera partida ganadora: Se le solicita al user un nombre de jugador y se muestra la primera victoria de dicho jugador con los siguientes datos:
 
-                a) PARTIDA WORDIX " (nro de la partida que ganó) ": palabra " . (palabra que adivinó) 
+                a) PARTIDA WORDIX " (nro de la partida que ganó) ": palabra " . "(palabra que adivinó) 
                 b) nombre del jugador
                 c) El puntaje que obtuvo.
                 d) En cuántos intentos logró adivinar la palabra.

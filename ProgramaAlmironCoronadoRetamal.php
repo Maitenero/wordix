@@ -153,46 +153,170 @@ function cargarPartidas(){
 }
 return $valor;
 }
-/* function partidasCargadas(){
-    $partidas = ["GATOS","juan","0","6",
-                "MELON","carlos","0","6",
-                "MUJER","ezequiel", "0","6",
-                "BALAS", "martin","0","6",
-                "BALAS","abi","0","6",
-                "MUJER","carlos","0","6",
-                "CASAS","fernando", "0","6",
-                "MELON","fernando","0","6",
-                "ANIMO","martin","0","6",
-                "BEBES","soho221","0","6",];
-    return $partidas;
+/** recorre el arreglo $coleccionPartidas buscando la clave "nombre" y llena el arreglo $resumenJugador con los datos
+ * @param ARRAY $coleccionArray
+ * @param STRING $nombreJugador
+ * @return ARRAY
+ */
+    function estadisticasJugador($coleccionArray, $nombreJugador){
+        //crear una colección sobre las jugadas del usuario
+        $i = 0;
+        $resumenPuntaje = 0;
+        $countVictorias = 0;
+        $resumenUser;
+        $resumenUser["partidas"] = 0; // inicializo al arreglo en posicion "partidas" en 0 para luego verificar si éste encontró resultados o no
+        $resumenUser["victorias"] = 0;
+        $resumenUser["puntaje"] = 0;
+        $resumenUser["intento1"] = 0;
+        $resumenUser["intento2"] = 0;
+        $resumenUser["intento3"] = 0;
+        $resumenUser["intento4"] = 0;
+        $resumenUser["intento5"] = 0;
+        $resumenUser["intento6"] = 0;
+        while ($i < count($coleccionArray)){
+            if( $coleccionArray[$i]["nombre"] == $nombreJugador){ // en caso de que el nombre existe:
+                $resumenUser["nombre"] = $coleccionArray[$i]["nombre"];
+                $resumenUser["partidas"]= $resumenUser["partidas"] +1; //guarda 1 unidad cada ves que encuentra el nombre dentro del array
+                $resumenUser["puntaje"]= $resumenUser["puntaje"] + $coleccionArray[$i]["puntaje"];
+                if($coleccionArray[$i]["puntaje"]>0){ 
+                        $resumenUser["victorias"] = $resumenUser["victorias"] + 1; //suma 1 victoria segun el puntaje
+            }   switch($coleccionArray[$i]["intento"]){ //acá es "segun el nro que me devuelve lo que haya en esa posicion: 3
+                        case 1: $resumenUser["intento1"] = $resumenUser["intento1"] + 1;
+                        break;
+                        case 2: $resumenUser["intento2"] = $resumenUser["intento2"] + 1;
+                        break;
+                        case 3: $resumenUser["intento3"] = $resumenUser["intento3"] + 1;
+                        break;
+                        case 4: $resumenUser["intento4"] = $resumenUser["intento4"] + 1;
+                        break;
+                        case 5: $resumenUser["intento5"] = $resumenUser["intento5"] + 1;
+                        break;
+                        case 6: $resumenUser["intento6"] = $resumenUser["intento6"] + 1;
+                        break; 
+                // el switch guarda en la correspondiente posicion "intento" una unidad pero el resto debería ser 0...
+        }       //if main
+                
+    }   $i = $i + 1;        // si $resumenUser["partida"] == 0 es porq nunca encontró al nombre buscado.
 }
-function cargarPartidas($arregloDePartidas){
-    $i = 0;
-    $j = 0;
-    $coleccionPartidas = [];
-    while ($i < count($arregloDePartidas)-3){
-        $datosPartidas = [];
-        $datosPartidas["palabraWordix"] = $arregloDePartidas[$i];
-        $datosPartidas["nombre"] = $arregloDePartidas[$i+1];
-        $datosPartidas["intentos"] = (int)($arregloDePartidas[$i+2]);
-        $datosPartidas["puntaje"] = (int)($arregloDePartidas[$i+3]);
-        $coleccionPartidas[$j] = $datosPartidas;
-        $i += 4; 
-        $j +=1;
+    return $resumenUser;
+}
+/**
+*@param ARRAY $coleccionResumen */
+
+function showEstadisticas ($coleccionResumen){
+	$porcentajeVictorias = 0.0;
+	$end = count($coleccionResumen);
+	$countVictorias = $coleccionResumen["victorias"];
+	$cantPartidas = $coleccionResumen["partidas"];
+	echo "*************************************** \n";
+	for ($i=0; $i< $end; $i++){
+		switch ($i){
+			case 0: echo "Jugador: ".$coleccionResumen["nombre"]." \n"; //debería llamar al modulo que pasa los nombres a minúscula?????
+			break;	
+			case 1: echo "Partidas: ".$coleccionResumen["partidas"]."\n";
+			break;
+			case 2: echo "Puntaje Total: ".$coleccionResumen["puntaje"]."\n";
+			break;
+			case 3: echo "Victorias: ". $coleccionResumen["victorias"]."\n";
+			break;
+			case 4: //porcentaje, advertencia: si el array es vacio, $cantPartidas será 0...
+				$porcentajeVictorias = ($countVictorias*100)/$cantPartidas;
+				echo "Porcentaje Victorias: ".round($porcentajeVictorias,2)."% \n";
+				break;
+			case 5: //El menú muestra todos los intentos, incluso si éstos son 0...
+				//debería inicializar cada posicion "intento" del arreglo $coleccionResumen en 0...
+				echo "Intento: \n";
+				echo $coleccionResumen["intento1"]."\n";
+				echo $coleccionResumen["intento2"]."\n";
+				echo $coleccionResumen["intento3"]."\n";
+				echo $coleccionResumen["intento4"]."\n";
+				echo $coleccionResumen["intento5"]."\n";
+				echo $coleccionResumen["intento6"]."\n";
+				break;
+}}
+	echo "*************************************** \n";
+}
+/** MODULO UASORT 
+ *@param ARRAY $coleccionJugadores
+*/
+function showColeccionOrdenada($coleccionJugadores){
+        
+    uasort($coleccionJugadores, "cmp");
+
+print_r($coleccionJugadores);
+}
+/** MODULO UASORT 
+ *@param STRING $palabra1
+ *@param STRING $palabra2
+ *@return INT
+ */
+function cmp($partida1, $partida2){
+    if($partida1["nombre"] == $partida2["nombre"]){
+        if($partida1["palabraWordix"] == $partida2["palabraWordix"]){
+            return 0;
+        }
+        else{
+            if($partida1["palabraWordix"] < $partida2["palabraWordix"]){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        }
     }
-    return $coleccionPartidas;
+    else{
+        if($partida1["nombre"] < $partida2["nombre"]){
+            return -1;
+        }
+        else{
+            return 1;
+        }
+    }
+}
+/**
+ * 
+ */
+function cargarNuevaPartida ($partidaJugada){
+
+    return $coleccionPartidaNueva;    
+    }
+/**
+ * 
+ */
+function nuevaPalabraWordix ($coleccionPalabras){
+    echo "ingrese una nueva palabra de 5 letra: ";
+    $nuevaPalabra = leerPalabra5Letras();
+    $finColeccion = count($coleccionPalabras);
+    $coleccionPalabras[$finColeccion+1] = $nuevaPalabra;
+    echo "La palabra ".$nuevaPalabra." se ha guardado exitosamente. \n";
+return $coleccionPalabras;
+}
+/**
+* 
+*/
+function cmp2($palabra, $palabra2){
+if($palabra[0] == $palabra2[0]){
+        return 0;
+}
+    else{
+        if($palabra[0] < $palabra2[0]){
+            return -1;
+        }
+        else{
+            return 1;
+        }
+    }
+}
+/**
+* 
+*/
+function showColeccionPalabras($coleccionPalabrasMain){
+    
+uasort($coleccionPalabrasMain, "cmp2");
+
+print_r($coleccionPalabrasMain);
 }
 
-$partidasDefault = partidasCargadas();
-$coleccionPartidas1 = cargarPartidas($partidasDefault);
-for($i = 0; $i < count($coleccionPartidas1); $i++){
-    echo $coleccionPartidas1[$i]["palabraWordix"]."\n";  //echos solo para testear el funcionamiento
-    echo $coleccionPartidas1[$i]["nombre"]."\n";
-    echo $coleccionPartidas1[$i]["intentos"]."\n";
-    echo $coleccionPartidas1[$i]["puntaje"]."\n";
-    echo "termina"."\n";
-}
-*/
 
 
 /**************************************/
@@ -202,73 +326,73 @@ for($i = 0; $i < count($coleccionPartidas1); $i++){
 //Declaración de variables:
 
 //Inicialización de variables:
-
-
-//Proceso:
-
-$partida = jugarWordix("MELON", strtolower("MaJo"));
-//print_r($partida);
-//imprimirResultado($partida);
-
-
 //PROGRAMA MAIN
-/*
+        $coleccionArray = cargarPartidas();
+        $coleccionPalabrasMain = cargarColeccionPalabras();
 do {
     
     $opcion = seleccionarOpcion ();
     
-    switch ($opcion) {
-        case 1: 
-            // Se le solicita al user nombre y un número (para determinar una palabra). Si el número ya fue elegido previamente, se le solicita otro número.
-            Luego de que una partida haya sido terminada, éstos datos se deberán guardar en una estructura de datos ($partidas[]).
-        
-            break;
-        case 2: 
-            // Jugar con una palabra random: Se le solicita al user su nombre, se seleccionará una palabra aleatoria disponible QUE NO HAYA SIDO USADA.
-            Luego de que una partida haya sido terminada, éstos datos se deberán guardar en una estructura de datos ($partidas[]).
+    switch ($opcionSelec){
+        case 1: echo "JUGAR WORDIX CON UNA PALABRA ELEGIDA \n";
+                $nombreUser = solicitarJugador();
+                $nroDePalabra = solicitarNumeroEntre(0, count($coleccionPalabrasMain));
+                $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
+                // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
+                $countPartidas = count($coleccionArray);
+                $coleccionArray[$countPartidas] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
 
-            break;
-        case 3: 
-            //mostrar una partida: Se le solicta al user un número de partida y se mostrará por pantalla los siguientes datos:
+        break;
+        case 2: echo "JUGAR WORDIX CON UNA PALABRA ALEATORIA \n";
+                $nombreUser = solicitarJugador();
+                $nroDePalabra = rand(0,count($coleccionPalabrasMain));
+                $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
+                // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
+                $countPartidas = count($coleccionArray);
+                $coleccionArray[$countPartidas+1] = ["PalabraWordix"=> $partidaJugada["palabraWordix"]];
+                $coleccionArray[$countPartidas+1] = ["jugador"=> $partidaJugada["jugador"]];
+                $coleccionArray[$countPartidas+1] = ["puntaje"=> $partidaJugada["puntaje"]];
+                $coleccionArray[$countPartidas+1] = ["intento"=> $partidaJugada["intentos"]];
+                
+        break;
+        case 3:
+            echo "ingrese un número de partida: ";
+            $numeroDePartida = trim(fgets(STDIN));
+            //$nroValido = solicitarNumeroEntre(1, count($coleccionArray))
+            mostrarPartida($nroValido,$coleccionArray);
+        break;
+        case 4: 
+            echo "Ingrese un nombre: ";
+            $nombreIngresado = trim(fgets(STDIN));
+            $valorEncontrado = buscarPartidaGanada($coleccionArray,$nombreIngresado);
+            var_dump($valorEncontrado);
+            if($valorEncontrado == -1){
+                echo "no se encontró resultado. \n";
+            }
+            else{
+                mostrarPartida($valorEncontrado, $coleccionArray)."\n";}
 
-                a) PARTIDA WORDIX <$numero>: palabra <$palabra>
-                b) Nombre del jugador.
-                c) el puntaje que obtuvo.
-                d) Intentos: No adivinó || Adivinó en "X" intentos.
-
-            break;
-        case 4:
-            //Mostrar la primera partida ganadora: Se le solicita al user un nombre de jugador y se muestra la primera victoria de dicho jugador con los siguientes datos:
-
-                a) PARTIDA WORDIX " (nro de la partida que ganó) ": palabra " . "(palabra que adivinó) 
-                b) nombre del jugador
-                c) El puntaje que obtuvo.
-                d) En cuántos intentos logró adivinar la palabra.
-    
-            break;
+        break;
         case 5:
-            //5) Mostrar las estadísticas de un jugador: Se le solicita al user nombre de un jugador y se muestran los siguientes datos:
-
-                a) Nombre del jugador
-                b) cantidad de partidas ganadas
-                c) El total de puntajes.
-                d) Total de victorias
-                e) Porcentaje de victorias.
-                f) En que intento adivnó.
-
+            echo "ingrese el nombre de un jugador: ";
+            $nombreIngresado = trim(fgets(STDIN));
+            $resumenJugador = estadisticasJugador($coleccionArray,$nombreIngresado);
+            if($resumenJugador["partidas"] != 0){
+                showEstadisticas($resumenJugador);
+            }
+            else{
+                echo "No existe el jugador ".$nombreIngresado. ". \n";
+            }
             break;
-        case 6: 
-             //Mostrar el listado de todas las partidas jugadas ordenadas por jugador y palabras: Se muestra por pantalla la estructura ordenada alfabeticamente por jugador y palabra.
-
-            break;
+        case 6:
+            echo "Mostrar listado de partidas ordenadas por jugador y por palabra";
+            showColeccionOrdenada($coleccionArray); 
+        break;
         case 7: 
-            //Agregar una palabra de 5 letras: Se le solicita al user una palabra de 5 letras para agregar a la biblioteca de palabras.
-
-            break;
-        case 8: 
-            //SALIR
-
-            break;
+            $coleccionPalabrasMain = nuevaPalabraWordix($coleccionPalabrasMain);
+            echo "\n";
+            showColeccionPalabras($coleccionPalabrasMain);
+        break;
     }
 } while ($opcion != 8);
-*/
+

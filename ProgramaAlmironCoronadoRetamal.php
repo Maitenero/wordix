@@ -107,24 +107,23 @@ function cargarPartidas(){
     * busca una partida segun un nroingresado dentro del array coleccion
     * @param INT $nroIngresado */
 
-    function mostrarPartida($nroPartida){
+    function mostrarPartida($nroPartida,$coleccionJugadores1){
         $partidaEncontrada = false;
         $condicion = true;
         $i = 0;
-        $coleccionArray = cargarPartidas();
-        while ( $condicion == true && $i<count($coleccionArray)) {
+        while ( $condicion == true && $i<count($coleccionJugadores1)) {
                 if ($i+1 == $nroPartida){
                     $condicion = false;	
                     $partidarEncontrada = true;
-                    echo "Partida WORDIX N° ". ($i+1).": palabra ".$coleccionArray[$i]["palabraWordix"]."\n";
-                    echo "Jugador: ".$coleccionArray[$i]["nombre"]."\n";
-                    echo "Puntaje: ".$coleccionArray[$i]["puntaje"]." puntos \n";
+                    echo "Partida WORDIX N° ". ($i+1).": palabra ".$coleccionJugadores1[$i]["palabraWordix"]."\n";
+                    echo "Jugador: ".$coleccionJugadores1[$i]["nombre"]."\n";
+                    echo "Puntaje: ".$coleccionJugadores1[$i]["puntaje"]." puntos \n";
                     // compara si los intentos son 6 y el puntaje 0, no adivinó. El usuario
                     // siempre va a llegar a los 6 intentos en caso de no adivinar.
-                    if ($coleccionArray[$i]["intento"] == 6 && $coleccionArray[$i]["puntaje"] == 0){
+                    if ($coleccionJugadores1[$i]["intento"] == 6 && $coleccionJugadores1[$i]["puntaje"] == 0){
                         echo "No adivinó la palabra.\n";
             }	    else{
-                        echo "Adivinó en el intento: ".$coleccionArray[$i]["intento"]."\n";
+                        echo "Adivinó en el intento: ".$coleccionJugadores1[$i]["intento"]."\n";
             }       
     }       $i = $i+1;
     }
@@ -143,7 +142,6 @@ function cargarPartidas(){
         $condicion = true;
         $i = 0;
         $valor = -1;
-        //$coleccionArray = cargarPartidas();
         while ( $condicion == true && $i<count($coleccionPartidas) ) {
                 if ($coleccionPartidas[$i]["nombre"] == $nombreAdd && $coleccionPartidas[$i]["puntaje"] > 0){
                     $condicion = false;	
@@ -349,16 +347,13 @@ do {
                 $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
                 // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
                 $countPartidas = count($coleccionArray);
-                $coleccionArray[$countPartidas+1] = ["PalabraWordix"=> $partidaJugada["palabraWordix"]];
-                $coleccionArray[$countPartidas+1] = ["jugador"=> $partidaJugada["jugador"]];
-                $coleccionArray[$countPartidas+1] = ["puntaje"=> $partidaJugada["puntaje"]];
-                $coleccionArray[$countPartidas+1] = ["intento"=> $partidaJugada["intentos"]];
-                
+                $coleccionArray[$countPartidas+1] = ["PalabraWordix"=> $partidaJugada["palabraWordix"],"jugador"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+
         break;
         case 3:
             echo "ingrese un número de partida: ";
             $numeroDePartida = trim(fgets(STDIN));
-            //$nroValido = solicitarNumeroEntre(1, count($coleccionArray))
+            $nroValido = solicitarNumeroEntre(1, count($coleccionArray));
             mostrarPartida($nroValido,$coleccionArray);
         break;
         case 4: 

@@ -36,7 +36,7 @@ function solicitarNumeroEntre($min, $max)
 {
     //int $numero
     $numero = trim(fgets(STDIN));
-    while (!is_int($numero) && !($numero >= $min && $numero <= $max)) {
+    while (!ctype_digit($numero) || !($numero >= $min && $numero <= $max)) {
         echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
         $numero = trim(fgets(STDIN));
     }
@@ -326,16 +326,31 @@ function esIntentoGanado($estructuraPalabraIntento)
     return $ganado;
 }
 
-/**
- * ****COMPLETAR***** documentación de la intefaz
- */
-function obtenerPuntajeWordix()  /* ****COMPLETAR***** parámetros formales necesarios */
-{
-
-    /* ****COMPLETAR***** cuerpo de la función*/
-    return 0;
+/** codigo main 
+*@param INT $nroIntento
+*@param ARRAY $estructuraPalabraIntento
+*@return INT */
+function obtenerPuntajeWordix($nroIntento1, $estructuraPalabraIntento){
+    
+    //averiguar cómo sé si en el intento 6 adivinó o no.
+    $puntajes = 0;
+    if(esIntentoGanado($estructuraPalabraIntento)==true){
+        switch ($nroIntento1){
+            case 1: $puntajes = 6;
+            break;
+            case 2: $puntajes = 5;
+            break;
+            case 3: $puntajes = 4;
+            break;
+            case 4: $puntajes = 3;
+            break;
+            case 5: $puntajes = 2;
+            break;
+            case 6: $puntajes = 1;
+            break;
 }
-
+return $puntajes;
+}}
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
  * @param string $palabraWordix
@@ -368,8 +383,9 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = obtenerPuntajeWordix();
-        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: " . $palabraIntento . " Obtuvo $puntaje puntos!";
+        $puntaje = obtenerPuntajeWordix($nroIntento,$arregloDeIntentosWordix);
+        echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: \n";
+        echo "Palabra: " . $palabraIntento . ". Obtuvo ".$puntaje." puntos! \n";
     } else {
         $nroIntento = 0; //reset intento
         $puntaje = 0;

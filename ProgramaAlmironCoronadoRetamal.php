@@ -91,16 +91,16 @@ function cargarColeccionPalabras()
  */
 function cargarPartidas(){
 
-        $coleccionPartidas[0] = ["palabraWordix" => "MUJER","nombre"=>"carlos","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[1] = ["palabraWordix" => "GATOS","nombre"=>"juan","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[2] = ["palabraWordix" => "BALAS","nombre"=>"carlos","puntaje"=>0,"intento"=>6];
+        $coleccionPartidas[0] = ["palabraWordix" => "MUJER","nombre"=>"carlos","puntaje"=>6,"intento"=>1];
+        $coleccionPartidas[1] = ["palabraWordix" => "GATOS","nombre"=>"juan","puntaje"=>5,"intento"=>4];
+        $coleccionPartidas[2] = ["palabraWordix" => "BALAS","nombre"=>"carlos","puntaje"=>3,"intento"=>3];
         $coleccionPartidas[3] = ["palabraWordix" => "CASAS","nombre"=>"fernando","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[4] = ["palabraWordix" => "MELON","nombre"=>"ezequiel","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[5] = ["palabraWordix" => "MUJER","nombre"=>"diego","puntaje"=>0,"intento"=>6];
+        $coleccionPartidas[4] = ["palabraWordix" => "MELON","nombre"=>"ezequiel","puntaje"=>1,"intento"=>6];
+        $coleccionPartidas[5] = ["palabraWordix" => "MUJER","nombre"=>"diego","puntaje"=>1,"intento"=>6];
         $coleccionPartidas[6] = ["palabraWordix" => "ANIMO","nombre"=>"carlos","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[7] = ["palabraWordix" => "BEBES","nombre"=>"soho221","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[8] = ["palabraWordix" => "BALAS","nombre"=>"abi","puntaje"=>0,"intento"=>6];
-        $coleccionPartidas[9] = ["palabraWordix" => "PIANO","nombre"=>"master2000","puntaje"=>0,"intento"=>6];
+        $coleccionPartidas[7] = ["palabraWordix" => "BEBES","nombre"=>"soho221","puntaje"=>6,"intento"=>1];
+        $coleccionPartidas[8] = ["palabraWordix" => "BALAS","nombre"=>"abi","puntaje"=>3,"intento"=>3];
+        $coleccionPartidas[9] = ["palabraWordix" => "PIANO","nombre"=>"master2000","puntaje"=>6,"intento"=>1];
         return $coleccionPartidas;    
 }
     /**
@@ -112,7 +112,7 @@ function cargarPartidas(){
         $condicion = true;
         $i = 0;
         while ( $condicion == true && $i<count($coleccionJugadores1)) {
-                if ($i+1 == $nroPartida){
+                if ($i == $nroPartida){
                     $condicion = false;	
                     $partidarEncontrada = true;
                     echo "Partida WORDIX N° ". ($i+1).": palabra ".$coleccionJugadores1[$i]["palabraWordix"]."\n";
@@ -337,7 +337,7 @@ do {
                 $nroDePalabra = solicitarNumeroEntre(0, count($coleccionPalabrasMain));
                 $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
                 // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-                $countPartidas = count($coleccionArray);
+                $countPartidas = count($coleccionArray) -1;
                 $coleccionArray[$countPartidas] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
 
         break;
@@ -346,23 +346,20 @@ do {
                 $nroDePalabra = rand(0,count($coleccionPalabrasMain));
                 $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
                 // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-                $countPartidas = count($coleccionArray);
-                $coleccionArray[$countPartidas+1] = ["PalabraWordix"=> $partidaJugada["palabraWordix"],"jugador"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+                $countPartidas1 = count($coleccionArray)-1;
+                $coleccionArray[$countPartidas1] = ["PalabraWordix"=> $partidaJugada["palabraWordix"],"jugador"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
 
         break;
         case 3:
-            echo "ingrese un número de partida: ";
-            $numeroDePartida = trim(fgets(STDIN));
-            $nroValido = solicitarNumeroEntre(1, count($coleccionArray));
-            mostrarPartida($nroValido,$coleccionArray);
+            $numeroDePartida = solicitarNumeroEntre(0, (count($coleccionArray)-1));
+            mostrarPartida($numeroDePartida,$coleccionArray);
         break;
         case 4: 
             echo "Ingrese un nombre: ";
             $nombreIngresado = trim(fgets(STDIN));
             $valorEncontrado = buscarPartidaGanada($coleccionArray,$nombreIngresado);
-            var_dump($valorEncontrado);
             if($valorEncontrado == -1){
-                echo "no se encontró resultado. \n";
+                echo "No se encontró resultado. \n";
             }
             else{
                 mostrarPartida($valorEncontrado, $coleccionArray)."\n";}

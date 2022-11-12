@@ -35,9 +35,10 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 function solicitarNumeroEntre($min, $max)
 {
     //int $numero
+    echo "Seleccione una número entre ".($min+1)." y ".($max+1)."\n";
     $numero = trim(fgets(STDIN));
     while (!ctype_digit($numero) || !($numero >= $min && $numero <= $max)) {
-        echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
+        echo "Debe ingresar un número entre " . ($min +1). " y " . ($max + 1). ": ";
         $numero = trim(fgets(STDIN));
     }
     return $numero;
@@ -349,8 +350,8 @@ function obtenerPuntajeWordix($nroIntento1, $estructuraPalabraIntento){
             case 6: $puntajes = 1;
             break;
 }
-return $puntajes;
-}}
+
+}return $puntajes;}
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
  * @param string $palabraWordix

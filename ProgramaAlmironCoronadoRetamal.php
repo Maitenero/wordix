@@ -333,7 +333,7 @@ do {
     
     $opcion = seleccionarOpcion ();
     
-    switch ($opcionSelec){
+    switch ($opcion){
         case 1: echo "JUGAR WORDIX CON UNA PALABRA ELEGIDA \n";
                 $nombreUser = solicitarJugador();
                 $nroDePalabra = solicitarNumeroEntre(0, count($coleccionPalabrasMain));

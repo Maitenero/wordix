@@ -334,11 +334,11 @@ do {
     switch ($opcion){
         case 1: echo "JUGAR WORDIX CON UNA PALABRA ELEGIDA \n";
                 $nombreUser = solicitarJugador();
-                $nroDePalabra = solicitarNumeroEntre(0, count($coleccionPalabrasMain));
+                $nroDePalabra = solicitarNumeroEntre(0, (count($coleccionPalabrasMain)-1));
                 $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
                 // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-                $countPartidas = count($coleccionArray) -1;
-                $coleccionArray[$countPartidas] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+                $countPartidas1 = count($coleccionArray);
+                $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
 
         break;
         case 2: echo "JUGAR WORDIX CON UNA PALABRA ALEATORIA \n";
@@ -346,8 +346,8 @@ do {
                 $nroDePalabra = rand(0,count($coleccionPalabrasMain));
                 $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
                 // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-                $countPartidas1 = count($coleccionArray)-1;
-                $coleccionArray[$countPartidas1] = ["PalabraWordix"=> $partidaJugada["palabraWordix"],"jugador"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+                $countPartidas1 = count($coleccionArray);
+                $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"],"nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
 
         break;
         case 3:

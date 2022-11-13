@@ -331,11 +331,10 @@ function esIntentoGanado($estructuraPalabraIntento)
 *@param INT $nroIntento
 *@param ARRAY $estructuraPalabraIntento
 *@return INT */
-function obtenerPuntajeWordix($nroIntento1, $estructuraPalabraIntento){
+function obtenerPuntajeWordix($nroIntento1){
     
     //averiguar cómo sé si en el intento 6 adivinó o no.
     $puntajes = 0;
-    if(esIntentoGanado($estructuraPalabraIntento)==true){
         switch ($nroIntento1){
             case 1: $puntajes = 6;
             break;
@@ -349,9 +348,9 @@ function obtenerPuntajeWordix($nroIntento1, $estructuraPalabraIntento){
             break;
             case 6: $puntajes = 1;
             break;
-}
-
-}return $puntajes;}
+        }   
+        return $puntajes;
+    }
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
  * @param string $palabraWordix

@@ -416,9 +416,9 @@ do {
             showColeccionOrdenada($coleccionArray); 
         break;
         case 7: 
-            $coleccionPalabrasMain = nuevaPalabraWordix($coleccionPalabrasMain);
+            $coleccionPalabras = agregarPalabrasAColeccion($coleccionPalabras);
             echo "\n";
-            showColeccionPalabras($coleccionPalabrasMain);
+            showColeccionPalabras($coleccionPalabras);
         break;
     }
 } while ($opcion != 8);

@@ -313,49 +313,7 @@ function cmp($partida1, $partida2){
         }
     }
 }
-/**
- * 
- */
-function cargarNuevaPartida ($partidaJugada){
 
-    return $coleccionPartidaNueva;    
-    }
-/**
- * 
- */
-function nuevaPalabraWordix ($coleccionPalabras){
-    echo "ingrese una nueva palabra de 5 letra: ";
-    $nuevaPalabra = leerPalabra5Letras();
-    $finColeccion = count($coleccionPalabras);
-    $coleccionPalabras[$finColeccion+1] = $nuevaPalabra;
-    echo "La palabra ".$nuevaPalabra." se ha guardado exitosamente. \n";
-return $coleccionPalabras;
-}
-/**
-* 
-*/
-function cmp2($palabra, $palabra2){
-if($palabra[0] == $palabra2[0]){
-        return 0;
-}
-    else{
-        if($palabra[0] < $palabra2[0]){
-            return -1;
-        }
-        else{
-            return 1;
-        }
-    }
-}
-/**
-* 
-*/
-function showColeccionPalabras($coleccionPalabrasMain){
-    
-uasort($coleccionPalabrasMain, "cmp2");
-
-print_r($coleccionPalabrasMain);
-}
 
 /**
     * Dada una colección de palabras ya establecida por el programa principal, le agrega otra palabra ingresada por el usuario y verificada.
@@ -464,4 +422,5 @@ do {
         break;
     }
 } while ($opcion != 8);
+
 

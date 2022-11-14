@@ -337,22 +337,22 @@ function obtenerPuntajeWordix($nroIntento1,$palabraIntento){
     $puntajes = 0;
         switch ($nroIntento1){
             case 1: $puntajes = 6;
-                    $puntajes = $puntajes + SumaLetras($palabraIntento);
+                    $puntajes = $puntajes + sumaLetras($palabraIntento);
             break;
             case 2: $puntajes = 5;
-                    $puntajes = $puntajes + SumaLetras($palabraIntento);
+                    $puntajes = $puntajes + sumaLetras($palabraIntento);
             break;
             case 3: $puntajes = 4;
-                    $puntajes = $puntajes + SumaLetras($palabraIntento);
+                    $puntajes = $puntajes + sumaLetras($palabraIntento);
             break;
             case 4: $puntajes = 3;
-                    $puntajes = $puntajes + SumaLetras($palabraIntento);
+                    $puntajes = $puntajes + sumaLetras($palabraIntento);
             break;
             case 5: $puntajes = 2;
-                    $puntajes = $puntajes + SumaLetras($palabraIntento);
+                    $puntajes = $puntajes + sumaLetras($palabraIntento);
             break;
             case 6: $puntajes = 1;
-                    $puntajes = $puntajes + SumaLetras($palabraIntento);
+                    $puntajes = $puntajes + sumaLetras($palabraIntento);
             break;
         }   
     return $puntajes;

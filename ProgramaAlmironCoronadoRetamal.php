@@ -36,7 +36,7 @@ function sumaLetras ($palabraJugada){
         $j = 0;
         while ($j < count($letras)){
             if ($letraActual == $letras[$j]){
-                if ($j == 0 || $j == 4 || $j == 8 || $j == 14){
+                if ($j == 0 || $j == 4 || $j == 8 || $j == 14 || $j == 20){
                     $puntos = $puntos + 1;  
                 }
                 elseif ($j < 13){

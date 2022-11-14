@@ -149,30 +149,19 @@ function cargarPartidas(){
     * busca una partida segun un nroingresado dentro del array coleccion
     * @param INT $nroIngresado */
 
-    function mostrarPartida($nroPartida,$coleccionJugadores1){
-        $partidaEncontrada = false;
-        $condicion = true;
-        $i = 0;
-        while ( $condicion == true && $i<count($coleccionJugadores1)) {
-                if ($i == $nroPartida){
-                    $condicion = false;	
-                    $partidarEncontrada = true;
-                    echo "Partida WORDIX N° ". ($i+1).": palabra ".$coleccionJugadores1[$i]["palabraWordix"]."\n";
-                    echo "Jugador: ".$coleccionJugadores1[$i]["nombre"]."\n";
-                    echo "Puntaje: ".$coleccionJugadores1[$i]["puntaje"]." puntos \n";
-                    // compara si los intentos son 6 y el puntaje 0, no adivinó. El usuario
-                    // siempre va a llegar a los 6 intentos en caso de no adivinar.
-                    if ($coleccionJugadores1[$i]["intento"] == 6 && $coleccionJugadores1[$i]["puntaje"] == 0){
-                        echo "No adivinó la palabra.\n";
-            }	    else{
-                        echo "Adivinó en el intento: ".$coleccionJugadores1[$i]["intento"]."\n";
-            }       
-    }       $i = $i+1;
-    }
-            if($partidaEncontrada == false){
-                    "No se encontró la partida.";
-            }
     
+function mostrarPartida ($nroPartida, $coleccionJugadores1){
+
+                echo "Partida WORDIX N° ". ($nroPartida).": palabra ".$coleccionJugadores1[$nroPartida]["palabraWordix"]."\n";
+                echo "Jugador: ".$coleccionJugadores1[$nroPartida]["nombre"]."\n";
+                echo "Puntaje: ".$coleccionJugadores1[$nroPartida]["puntaje"]." puntos \n";
+                // compara si los intentos son 6 y el puntaje 0, no adivinó. El usuario
+                // siempre va a llegar a los 6 intentos en caso de no adivinar.
+                if ($coleccionJugadores1[$nroPartida]["intento"] == 6 && $coleccionJugadores1[$nroPartida]["puntaje"] == 0){
+                       echo "No adivinó la palabra.\n";
+           }	else{
+                       echo "Adivinó en el intento: ".$coleccionJugadores1[$nroPartida]["intento"]."\n";
+           }  
     }
     /**
     * busca una partida segun un nombre ingresado dentro del array coleccion, si la encuentra, devuelve la posición, si no, -1
@@ -391,7 +380,7 @@ do {
         break;
         case 4: 
             echo "Ingrese un nombre: ";
-            $nombreIngresado = trim(fgets(STDIN));
+            $nombreIngresado = solicitarJugador();
             $valorEncontrado = buscarPartidaGanada($coleccionArray,$nombreIngresado);
             if($valorEncontrado == -1){
                 echo "No se encontró resultado. \n";
@@ -402,7 +391,7 @@ do {
         break;
         case 5:
             echo "ingrese el nombre de un jugador: ";
-            $nombreIngresado = trim(fgets(STDIN));
+            $nombreIngresado = solicitarJugador();
             $resumenJugador = estadisticasJugador($coleccionArray,$nombreIngresado);
             if($resumenJugador["partidas"] != 0){
                 showEstadisticas($resumenJugador);
@@ -416,9 +405,8 @@ do {
             showColeccionOrdenada($coleccionArray); 
         break;
         case 7: 
-            $coleccionPalabras = agregarPalabrasAColeccion($coleccionPalabras);
+            $coleccionPalabras = agregarPalabrasAColeccion($coleccionPalabrasMain);
             echo "\n";
-            showColeccionPalabras($coleccionPalabras);
         break;
     }
 } while ($opcion != 8);

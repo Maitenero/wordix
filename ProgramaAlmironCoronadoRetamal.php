@@ -10,6 +10,48 @@ Ezequiel Juan Retamal** - Legajo FAI 1419 - mail: ezequiel.retamal@est.fi.uncoma
 /***** DEFINICION DE FUNCIONES ********/
 /**************************************/
 
+/**
+ * Establece un array de letras
+ * @return ARRAY
+ */
+function letrasAbc(){
+    //array $arrayLetras
+    $arrayLetras = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+    return $arrayLetras;
+} 
+
+/**
+ * Realiza la suma de los puntos correspondientes a cada letra
+ * @param STRING palabraJugada
+ * @return INT
+ */
+function sumaLetras ($palabraJugada){
+    /*INT $j, $i, $puntos, STRING $letraActual, $palabraJugada, ARRAY $letras, */
+    $letras = letrasAbc ();
+    $palabraJugada = strtolower($palabraJugada);
+    $i = 0;
+    $puntos = 0;
+    for ($i=0; $i < 5 ; $i++) { 
+        $letraActual = $palabraJugada[$i];
+        $j = 0;
+        while ($j < count($letras)){
+            if ($letraActual == $letras[$j]){
+                if ($j == 0 || $j == 4 || $j == 8 || $j == 14){
+                    $puntos = $puntos + 1;  
+                }
+                elseif ($j < 13){
+                    $puntos = $puntos + 2;  
+                }
+                else{ 
+                    $puntos = $puntos + 3;
+                }
+            }
+            $j++;
+        }
+    }
+    return $puntos;
+}
+ 
  /**
   * Solicita al usuario un nombre de jugador, que debe comenzar con una letra, retorna el nombre en minusculas
   * @return STRING

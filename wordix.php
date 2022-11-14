@@ -35,7 +35,7 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 function solicitarNumeroEntre($min, $max)
 {
     //int $numero
-    echo "Seleccione una número entre ".($min+1)." y ".($max+1)."\n";
+    echo "Seleccione un número entre ".($min+1)." y ".($max+1)."\n";
     $numero = trim(fgets(STDIN));
     while (!ctype_digit($numero) || !($numero >= $min && $numero <= $max)) {
         echo "Debe ingresar un número entre " . ($min +1). " y " . ($max + 1). ": ";
@@ -331,26 +331,32 @@ function esIntentoGanado($estructuraPalabraIntento)
 *@param INT $nroIntento
 *@param ARRAY $estructuraPalabraIntento
 *@return INT */
-function obtenerPuntajeWordix($nroIntento1){
+function obtenerPuntajeWordix($nroIntento1,$palabraIntento){
     
     //averiguar cómo sé si en el intento 6 adivinó o no.
     $puntajes = 0;
         switch ($nroIntento1){
             case 1: $puntajes = 6;
+                    $puntajes = $puntajes + SumaLetras($palabraIntento);
             break;
             case 2: $puntajes = 5;
+                    $puntajes = $puntajes + SumaLetras($palabraIntento);
             break;
             case 3: $puntajes = 4;
+                    $puntajes = $puntajes + SumaLetras($palabraIntento);
             break;
             case 4: $puntajes = 3;
+                    $puntajes = $puntajes + SumaLetras($palabraIntento);
             break;
             case 5: $puntajes = 2;
+                    $puntajes = $puntajes + SumaLetras($palabraIntento);
             break;
             case 6: $puntajes = 1;
+                    $puntajes = $puntajes + SumaLetras($palabraIntento);
             break;
         }   
-        return $puntajes;
-    }
+    return $puntajes;
+}
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
  * @param string $palabraWordix
@@ -383,8 +389,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
 
     if ($ganoElIntento) {
         $nroIntento--;
-        $puntaje = 6;
-        //$puntaje = obtenerPuntajeWordix($nroIntento,$arregloDeIntentosWordix);
+        $puntaje = obtenerPuntajeWordix($nroIntento,$palabraWordix);
         echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: \n";
         echo "Palabra: " . $palabraIntento . ". Obtuvo ".$puntaje." puntos! \n";
     } else {

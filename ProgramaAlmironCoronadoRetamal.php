@@ -357,7 +357,42 @@ uasort($coleccionPalabrasMain, "cmp2");
 print_r($coleccionPalabrasMain);
 }
 
+/**
+    * Dada una colección de palabras ya establecida por el programa principal, le agrega otra palabra ingresada por el usuario y verificada.
+    * @param array $coleccion
+    * @return array 
+    */
+    function agregarPalabrasAColeccion($coleccion){
+        /* string $palabraACargar */
+        do {
+        $palabraACargar = leerPalabra5Letras();
+        } while(palabraYaIngresada(strtoupper($palabraACargar), $coleccion));
 
+        $coleccion[count($coleccion)] = strtoupper($palabraACargar);
+        return $coleccion;
+     } 
+     /**
+    * Verifica su una palabra pasada por parámentro se encuentra dentro del array coleccion (también pasado por parámetro).
+    * @param string $palabraABuscar
+    * @param array $coleccion
+    * @return boolean
+    */
+     function palabraYaIngresada($palabraABuscar, $coleccion){
+        /* boolean $seEncuentra
+        int $longitud 
+        int $i */
+        $seEncuentra = false;
+        $longitud = count($coleccion);
+        $i = 0;
+        while($i < $longitud && $seEncuentra == false) {
+            if(strcmp($palabraABuscar, $coleccion[$i]) === 0){
+                echo 'Ha ingresado una palabra que ya se encuentra en la colección, pruebe nuevamente.' . '\n';
+                $seEncuentra = true;
+            }
+        $i++;
+        return $seEncuentra;
+    }
+    }
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/

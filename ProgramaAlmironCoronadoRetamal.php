@@ -352,6 +352,30 @@ int $i */
     return $seEncuentra;
 }
 
+/**
+* Verifica si un jugador ya jugó con la palabra seleccionada.
+* @param string $nombreDelJugador
+* @param array $coleccionDePartidas
+* @param array $coleccionDePalabras
+* @param int $nroPalabra
+* @return boolean
+*/
+function palabraYaJugada($nombreDelJugador, $coleccionDePartidas, $coleccionDePalabras, $nroPalabra){
+    /* boolean $YaJugo
+    int $longitud 
+    int $i */
+        $YaJugo = false;
+        $longitud = count($coleccionDePartidas);
+        for($i = 0; $i < $longitud; $i++){
+            if(strcmp($nombreDelJugador, $coleccionDePartidas[$i]["nombre"]) === 0){
+                if(strcmp($coleccionDePalabras[$nroPalabra], $coleccionDePartidas[$i]["palabraWordix"])=== 0){
+                    $YaJugo = true;
+                }
+            }
+        }
+        return $YaJugo;
+    }
+
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
@@ -361,6 +385,7 @@ int $i */
 /* INT $opcion, $countPartidas1, $numeroDePartida, $nroDePalabra,$valorEncontrado
    STRING $nombreUser
    ARRAY $partidaJugada, $resumenJugador, $coleccionArray, $coleccionPalabrasMain
+   BOOLEAN $validacionDePalabra
 */
 
 //Inicialización de variables:
@@ -375,6 +400,7 @@ $numeroDePartida = 0;
 $valorEncontrado = 0;
 $resumenJugador = [];
 $nombreUser = "";
+$validacionDePalabra = false;
 
 //PROGRAMA MAIN
 
@@ -386,15 +412,21 @@ do {
         case 1: echo "JUGAR WORDIX CON UNA PALABRA ELEGIDA \n";
             $nombreUser = solicitarJugador();
             $nroDePalabra = solicitarNumeroEntre(0, (count($coleccionPalabrasMain)-1));
-            $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
-            // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-            $countPartidas1 = count($coleccionArray);
-            $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
-
+            $validacionDePalabra = !palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra);
+             if($validacionDePalabra){
+                $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
+                // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
+                $countPartidas1 = count($coleccionArray);
+                $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+            } else {
+                echo "El jugador ya ha jugado con la palabra seleccionada, intente nuevamente";
+            }
         break;
         case 2: echo "JUGAR WORDIX CON UNA PALABRA ALEATORIA \n";
             $nombreUser = solicitarJugador();
+            do{
             $nroDePalabra = rand(0,count($coleccionPalabrasMain));
+            }while(palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra));
             $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
             // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
             $countPartidas1 = count($coleccionArray);

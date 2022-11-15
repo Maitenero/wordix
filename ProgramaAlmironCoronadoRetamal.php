@@ -171,6 +171,7 @@ function mostrarPartida ($nroPartida, $coleccionJugadores1){
 * @param return int
 */
 function buscarPartidaGanada($coleccionPartidas,$nombreAdd){
+    // BOOL $jugadorEncontrado, $condicion, INT $i, $valor
     $jugadorEncontrado = false;
     $condicion = true;
     $i = 0;
@@ -178,14 +179,15 @@ function buscarPartidaGanada($coleccionPartidas,$nombreAdd){
     while ( $condicion == true && $i<count($coleccionPartidas) ) {
         if ($coleccionPartidas[$i]["nombre"] == $nombreAdd){
             if($coleccionPartidas[$i]["puntaje"] > 0){
-            $condicion = false;	
-            $valor = $i;
-}       else{
+                $condicion = false;	
+                $valor = $i;
+            }
+            else{
             $valor = -1;
-}    
-          
-}        $i = $i+1; 
-}
+            }    
+        }        
+        $i = $i+1; 
+    }
     return $valor;
 }
 
@@ -242,6 +244,7 @@ function estadisticasJugador($coleccionArray, $nombreJugador){
  *@param ARRAY $coleccionResumen
 */
 function showEstadisticas ($coleccionResumen){
+    // FLOAT $porcentajeVictorias, INT $end, $countVictorias, $cantPartidas
 	$porcentajeVictorias = 0.0;
 	$end = count($coleccionResumen);
 	$countVictorias = $coleccionResumen["victorias"];
@@ -415,24 +418,25 @@ do {
             $nombreUser = solicitarJugador();
             $nroDePalabra = solicitarNumeroEntre(0, (count($coleccionPalabrasMain)-1));
             $validacionDePalabra = !palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra);
-             if($validacionDePalabra){
+            if($validacionDePalabra){
                 $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
                 // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
                 $countPartidas1 = count($coleccionArray);
                 $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
-            } else {
+            } 
+            else{
                 echo "El jugador ya ha jugado con la palabra seleccionada, intente nuevamente";
             }
         break;
         case 2: echo "JUGAR WORDIX CON UNA PALABRA ALEATORIA \n";
             $nombreUser = solicitarJugador();
             do{
-            $nroDePalabra = rand(0,count($coleccionPalabrasMain));
+                $nroDePalabra = rand(0,count($coleccionPalabrasMain));
             }while(palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra));
             $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
             // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
             $countPartidas1 = count($coleccionArray);
-            $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"],"nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+             $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"],"nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
 
         break;
         case 3:
@@ -446,15 +450,12 @@ do {
             if($valorEncontrado == 0){
                 echo "No existe el jugador. \n";
             }
-            else{
-                if($valorEncontrado == -1){
-                    echo "El jugador ".$nombreUser." no ganó ninguna partida \n";
-                }
-                else{
-                    mostrarPartida($valorEncontrado, $coleccionArray)."\n";
-                }
+            elseif($valorEncontrado == -1){
+                echo "El jugador ".$nombreUser." no ganó ninguna partida \n";
             }
-
+            else{
+                mostrarPartida($valorEncontrado, $coleccionArray)."\n";
+            }
         break;
         case 5:
             $nombreUser = solicitarJugador();

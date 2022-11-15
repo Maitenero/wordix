@@ -99,19 +99,19 @@ function escribirSegunEstado($texto, $estado)
     switch ($estado) {
         case ESTADO_LETRA_DISPONIBLE:
             escribirNormal($texto);
-            break;
+        break;
         case ESTADO_LETRA_ENCONTRADA:
             escribirVerde($texto);
-            break;
+        break;
         case ESTADO_LETRA_PERTENECE:
             escribirAmarillo($texto);
-            break;
+        break;
         case ESTADO_LETRA_DESCARTADA:
             escribirRojo($texto);
-            break;
+        break;
         default:
             echo " $texto ";
-            break;
+        break;
     }
 }
 
@@ -335,26 +335,26 @@ function obtenerPuntajeWordix($nroIntento1,$palabraIntento){
     
     //averiguar cómo sé si en el intento 6 adivinó o no.
     $puntajes = 0;
-        switch ($nroIntento1){
-            case 1: $puntajes = 6;
-                    $puntajes = $puntajes + sumaLetras($palabraIntento);
-            break;
-            case 2: $puntajes = 5;
-                    $puntajes = $puntajes + sumaLetras($palabraIntento);
-            break;
-            case 3: $puntajes = 4;
-                    $puntajes = $puntajes + sumaLetras($palabraIntento);
-            break;
-            case 4: $puntajes = 3;
-                    $puntajes = $puntajes + sumaLetras($palabraIntento);
-            break;
-            case 5: $puntajes = 2;
-                    $puntajes = $puntajes + sumaLetras($palabraIntento);
-            break;
-            case 6: $puntajes = 1;
-                    $puntajes = $puntajes + sumaLetras($palabraIntento);
-            break;
-        }   
+    switch ($nroIntento1){
+        case 1: $puntajes = 6;
+            $puntajes = $puntajes + sumaLetras($palabraIntento);
+        break;
+        case 2: $puntajes = 5;
+            $puntajes = $puntajes + sumaLetras($palabraIntento);
+        break;
+        case 3: $puntajes = 4;
+            $puntajes = $puntajes + sumaLetras($palabraIntento);
+        break;
+        case 4: $puntajes = 3;
+            $puntajes = $puntajes + sumaLetras($palabraIntento);
+        break;
+        case 5: $puntajes = 2;
+            $puntajes = $puntajes + sumaLetras($palabraIntento);
+        break;
+        case 6: $puntajes = 1;
+            $puntajes = $puntajes + sumaLetras($palabraIntento);
+        break;
+    }   
     return $puntajes;
 }
 /**

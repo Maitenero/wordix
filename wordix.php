@@ -37,7 +37,7 @@ function solicitarNumeroEntre($min, $max)
     //int $numero
     echo "Seleccione un número entre ".($min+1)." y ".($max+1)."\n";
     $numero = trim(fgets(STDIN));
-    while (!ctype_digit($numero) || !($numero >= $min && $numero <= $max)) {
+    while (!ctype_digit($numero) || !($numero >= ($min+1) && $numero <= ($max+1))) {
         echo "Debe ingresar un número entre " . ($min +1). " y " . ($max + 1). ": ";
         $numero = trim(fgets(STDIN));
     }

@@ -366,19 +366,19 @@ int $i */
 * @return boolean
 */
 function palabraYaJugada($nombreDelJugador, $coleccionDePartidas, $coleccionDePalabras, $nroPalabra){
-    /* boolean $YaJugo
+    /* boolean $yaJugo
     int $longitud 
     int $i */
-        $YaJugo = false;
+        $yaJugo = false;
         $longitud = count($coleccionDePartidas);
         for($i = 0; $i < $longitud; $i++){
             if(strcmp($nombreDelJugador, $coleccionDePartidas[$i]["nombre"]) === 0){
                 if(strcmp($coleccionDePalabras[$nroPalabra], $coleccionDePartidas[$i]["palabraWordix"])=== 0){
-                    $YaJugo = true;
+                    $yaJugo = true;
                 }
             }
         }
-        return $YaJugo;
+        return $yaJugo;
     }
 
 /**************************************/

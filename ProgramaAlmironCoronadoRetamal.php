@@ -152,7 +152,7 @@ function cargarPartidas(){
 */ 
 function mostrarPartida ($nroPartida, $coleccionJugadores1){
 
-    echo "Partida WORDIX N° ". ($nroPartida).": palabra ".$coleccionJugadores1[$nroPartida]["palabraWordix"]."\n";
+    echo "Partida WORDIX N° ". ($nroPartida + 1).": palabra ".$coleccionJugadores1[$nroPartida]["palabraWordix"]."\n";
     echo "Jugador: ".$coleccionJugadores1[$nroPartida]["nombre"]."\n";
     echo "Puntaje: ".$coleccionJugadores1[$nroPartida]["puntaje"]." puntos \n";
     // compara si los intentos son 6 y el puntaje 0, no adivinó. El usuario
@@ -344,7 +344,7 @@ int $i */
     $i = 0;
     while($i < $longitud && $seEncuentra == false) {
         if(strcmp($palabraABuscar, $coleccion[$i]) === 0){
-            echo 'Ha ingresado una palabra que ya se encuentra en la colección, pruebe nuevamente.' . '\n';
+            echo 'Ha ingresado una palabra que ya se encuentra en la colección, pruebe nuevamente.' . "\n";
             $seEncuentra = true;
         }
         $i++;
@@ -403,10 +403,10 @@ do {
         break;
         case 3:
             $numeroDePartida = solicitarNumeroEntre(0, (count($coleccionArray)-1));
+            echo "\n";
             mostrarPartida($numeroDePartida,$coleccionArray);
         break;
         case 4: 
-            echo "Ingrese el nombre de un jugador: ";
             $nombreUser = solicitarJugador();
             $valorEncontrado = buscarPartidaGanada($coleccionArray,$nombreUser);
             if($valorEncontrado == -1){
@@ -418,7 +418,6 @@ do {
 
         break;
         case 5:
-            echo "ingrese el nombre de un jugador: ";
             $nombreUser = solicitarJugador();
             $resumenJugador = estadisticasJugador($coleccionArray,$nombreUser);
             if($resumenJugador["partidas"] != 0){
@@ -429,7 +428,7 @@ do {
             }
         break;
         case 6:
-            echo "Mostrar listado de partidas ordenadas por jugador y por palabra";
+            echo "Mostrar listado de partidas ordenadas por jugador y por palabra \n";
             showColeccionOrdenada($coleccionArray); 
         break;
         case 7: 

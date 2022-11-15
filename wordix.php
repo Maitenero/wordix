@@ -155,13 +155,15 @@ function esPalabra($cadena)
 function leerPalabra5Letras()
 {
     //string $palabra
-    echo "Ingrese una palabra de 5 letras: ";
+    echo "Ingrese una palabra de 5 letras:\n ";
     $palabra = trim(fgets(STDIN));
+    echo "\n";
     $palabra  = strtoupper($palabra);
 
     while ((strlen($palabra) != 5) || !esPalabra($palabra)) {
-        echo "Debe ingresar una palabra de 5 letras:";
+        echo "Debe ingresar una palabra de 5 letras: \n";
         $palabra = strtoupper(trim(fgets(STDIN)));
+        echo "\n";
     }
     return $palabra;
 }

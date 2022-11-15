@@ -174,15 +174,18 @@ function buscarPartidaGanada($coleccionPartidas,$nombreAdd){
     $jugadorEncontrado = false;
     $condicion = true;
     $i = 0;
-    $valor = -1;
+    $valor = 0;
     while ( $condicion == true && $i<count($coleccionPartidas) ) {
-        if ($coleccionPartidas[$i]["nombre"] == $nombreAdd && $coleccionPartidas[$i]["puntaje"] > 0){
+        if ($coleccionPartidas[$i]["nombre"] == $nombreAdd){
+            if($coleccionPartidas[$i]["puntaje"] > 0){
             $condicion = false;	
             $valor = $i;
-
-        }    
-        $i = $i+1;    
-    }
+}       else{
+            $valor = -1;
+}    
+          
+}        $i = $i+1; 
+}
     return $valor;
 }
 
@@ -440,11 +443,16 @@ do {
         case 4: 
             $nombreUser = solicitarJugador();
             $valorEncontrado = buscarPartidaGanada($coleccionArray,$nombreUser);
-            if($valorEncontrado == -1){
-                echo "No se encontró resultado. \n";
+            if($valorEncontrado == 0){
+                echo "No existe el jugador. \n";
             }
             else{
-                mostrarPartida($valorEncontrado, $coleccionArray)."\n";
+                if($valorEncontrado == -1){
+                    echo "El jugador ".$nombreUser." no ganó ninguna partida \n";
+                }
+                else{
+                    mostrarPartida($valorEncontrado, $coleccionArray)."\n";
+                }
             }
 
         break;

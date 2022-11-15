@@ -471,7 +471,8 @@ do {
             showColeccionOrdenada($coleccionArray); 
         break;
         case 7: 
-            $coleccionPalabras = agregarPalabrasAColeccion($coleccionPalabrasMain);
+            $coleccionPalabrasMain = agregarPalabrasAColeccion($coleccionPalabrasMain);
+            echo "Se ha agregado la palabra correctamente.";
             echo "\n";
         break;
     }

@@ -330,12 +330,15 @@ function esIntentoGanado($estructuraPalabraIntento)
     return $ganado;
 }
 
-/** codigo main 
-*@param INT $nroIntento
-*@param ARRAY $estructuraPalabraIntento
-*@return INT */
+/** 
+ * Obtiene el puntaje total de la partida jugada
+ *@param INT $nroIntento
+ *@param INT $mroIntento1
+ *@param STRING $palabraIntento
+ *@return INT 
+ */
 function obtenerPuntajeWordix($nroIntento1,$palabraIntento){
-    
+  // INT $puntajes 
     //averiguar cómo sé si en el intento 6 adivinó o no.
     $puntajes = 0;
     switch ($nroIntento1){

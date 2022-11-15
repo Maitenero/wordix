@@ -195,8 +195,6 @@ function estadisticasJugador($coleccionArray, $nombreJugador){
     /*int $i, array $resumenUser */
     //crear una colección sobre las jugadas del usuario
     $i = 0;
-    $resumenPuntaje = 0; //preguntar a eze pq se inicializa esto
-    $countVictorias = 0;
     $resumenUser;
     $resumenUser["partidas"] = 0; // inicializo al arreglo en posicion "partidas" en 0 para luego verificar si éste encontró resultados o no
     $resumenUser["victorias"] = 0;
@@ -237,7 +235,8 @@ function estadisticasJugador($coleccionArray, $nombreJugador){
 }
 
 /**
-*@param ARRAY $coleccionResumen
+ *Muestra las estadisticas del jugador 
+ *@param ARRAY $coleccionResumen
 */
 function showEstadisticas ($coleccionResumen){
 	$porcentajeVictorias = 0.0;

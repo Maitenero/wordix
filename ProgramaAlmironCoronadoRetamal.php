@@ -228,7 +228,9 @@ function estadisticasJugador($coleccionArray, $nombreJugador){
                 break;
                 case 5: $resumenUser["intento5"] = $resumenUser["intento5"] + 1;
                 break;
-                case 6: $resumenUser["intento6"] = $resumenUser["intento6"] + 1;
+                case 6: //if ($coleccionArray[$i]["puntaje"]> 0) { //esto lo agrego por que segun yo es asi, pero segun mis compañero no. firma: Martin.
+                            $resumenUser["intento6"] = $resumenUser["intento6"] + 1;
+                        //}
                 break; 
                 // el switch guarda en la correspondiente posicion "intento" una unidad pero el resto debería ser 0...
             }       

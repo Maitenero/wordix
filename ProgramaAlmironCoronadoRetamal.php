@@ -171,8 +171,7 @@ function mostrarPartida ($nroPartida, $coleccionJugadores1){
 * @param return int
 */
 function buscarPartidaGanada($coleccionPartidas,$nombreAdd){
-    // BOOL $jugadorEncontrado, $condicion, INT $i, $valor
-    $jugadorEncontrado = false;
+    // BOOL $condicion, INT $i, $valor
     $condicion = true;
     $i = 0;
     $valor = 0;
@@ -373,7 +372,7 @@ function palabraYaJugada($nombreDelJugador, $coleccionDePartidas, $coleccionDePa
         $longitud = count($coleccionDePartidas);
         while($i < $longitud && $yaJugo == false){
             if(strcmp($nombreDelJugador, $coleccionDePartidas[$i]["nombre"]) === 0){
-                if(strcmp($coleccionDePalabras[$nroPalabra], $coleccionDePartidas[$i]["palabraWordix"])=== 0){
+                if(strcmp($coleccionDePalabras[$nroPalabra], $coleccionDePartidas[$i]["palabraWordix"]) === 0){
                     $yaJugo = true;
                 }
             }

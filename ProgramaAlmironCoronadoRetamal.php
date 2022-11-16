@@ -416,17 +416,21 @@ do {
     switch ($opcion){
         case 1: echo "JUGAR WORDIX CON UNA PALABRA ELEGIDA \n";
             $nombreUser = solicitarJugador();
-            $nroDePalabra = solicitarNumeroEntre(0, (count($coleccionPalabrasMain)-1));
-            $validacionDePalabra = !palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra);
-            if($validacionDePalabra){
-                $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
-                // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-                $countPartidas1 = count($coleccionArray);
-                $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
-            } 
-            else{
-                echo "El jugador ya ha jugado con la palabra seleccionada, intente nuevamente";
-            }
+            $corte = true;
+            do{
+                $nroDePalabra = solicitarNumeroEntre(0, (count($coleccionPalabrasMain)-1));
+                $validacionDePalabra = palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra);
+                if(!$validacionDePalabra){
+                    $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
+                    // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
+                    $countPartidas1 = count($coleccionArray);
+                    $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+                    $corte = false;
+                } 
+                elseif ($validacionDePalabra){
+                    echo "El jugador ya ha jugado con la palabra seleccionada, intente nuevamente \n";
+                }
+            }while($corte);
         break;
         case 2: echo "JUGAR WORDIX CON UNA PALABRA ALEATORIA \n";
             $nombreUser = solicitarJugador();

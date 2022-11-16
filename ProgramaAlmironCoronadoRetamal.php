@@ -34,16 +34,20 @@ function sumaLetras ($palabraJugada){
     for ($i=0; $i < 5 ; $i++) { 
         $letraActual = $palabraJugada[$i];
         $j = 0;
-        while ($j < count($letras)){
+        $corte = true;
+        while ($j < count($letras) && $corte){
             if ($letraActual == $letras[$j]){
                 if ($j == 0 || $j == 4 || $j == 8 || $j == 14 || $j == 20){
-                    $puntos = $puntos + 1;  
+                    $puntos = $puntos + 1;
+                    $corte = false;  
                 }
                 elseif ($j < 13){
                     $puntos = $puntos + 2;  
+                    $corte = false;
                 }
                 else{ 
                     $puntos = $puntos + 3;
+                    $corte = false;
                 }
             }
             $j++;
@@ -372,6 +376,7 @@ function palabraYaJugada($nombreDelJugador, $coleccionDePartidas, $coleccionDePa
     int $i */
         $yaJugo = false;
         $longitud = count($coleccionDePartidas);
+        $i = 0;
         while($i < $longitud && $yaJugo == false){
             if(strcmp($nombreDelJugador, $coleccionDePartidas[$i]["nombre"]) === 0){
                 if(strcmp($coleccionDePalabras[$nroPalabra], $coleccionDePartidas[$i]["palabraWordix"]) === 0){
@@ -475,9 +480,11 @@ do {
             }
             elseif($valorEncontrado == -1){
                 echo "El jugador ".$nombreUser." no ganó ninguna partida \n";
+                echo "\n";
             }
             else{
                 mostrarPartida($valorEncontrado, $coleccionArray)."\n";
+                echo "\n";
             }
         break;
         case 5:
@@ -496,7 +503,7 @@ do {
         break;
         case 7: 
             $coleccionPalabrasMain = agregarPalabrasAColeccion($coleccionPalabrasMain);
-            echo "Se ha agregado la palabra correctamente.";
+            echo "Se ha agregado la palabra correctamente. \n";
             echo "\n";
         break;
     }

@@ -37,8 +37,10 @@ function solicitarNumeroEntre($min, $max)
     //int $numero
     echo "Seleccione un número entre ".($min+1)." y ".($max+1)."\n";
     $numero = trim(fgets(STDIN));
+    echo "\n";
     while (!ctype_digit($numero) || !($numero >= ($min+1) && $numero <= ($max+1))) {
         echo "Debe ingresar un número entre " . ($min +1). " y " . ($max + 1). ": ";
+        echo "\n";
         $numero = trim(fgets(STDIN));
     }
     $numero--;
@@ -122,11 +124,13 @@ function escribirSegunEstado($texto, $estado)
  */
 function escribirMensajeBienvenida($usuario)
 {
+    echo "\n";
     echo "***************************************************\n";
     echo "** Hola ";
     escribirAmarillo($usuario);
     echo " Juguemos una PARTIDA de WORDIX! **\n";
     echo "***************************************************\n";
+    echo "\n";
 }
 
 
@@ -155,7 +159,7 @@ function esPalabra($cadena)
 function leerPalabra5Letras()
 {
     //string $palabra
-    echo "Ingrese una palabra de 5 letras:\n ";
+    echo "Ingrese una palabra de 5 letras:\n";
     $palabra = trim(fgets(STDIN));
     echo "\n";
     $palabra  = strtoupper($palabra);
@@ -379,6 +383,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     do {
 
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
+        echo "\n";
         $palabraIntento = leerPalabra5Letras();
         $indiceIntento = $nroIntento - 1;
         $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix, $palabraIntento);
@@ -398,10 +403,12 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         $puntaje = obtenerPuntajeWordix($nroIntento,$palabraWordix);
         echo "Adivinó la palabra Wordix en el intento " . $nroIntento . "!: \n";
         echo "Palabra: " . $palabraIntento . ". Obtuvo ".$puntaje." puntos! \n";
+        echo "\n";
     } else {
         $nroIntento = 0; //reset intento
         $puntaje = 0;
-        echo "Seguí Jugando Wordix, la próxima será! ";
+        echo "Seguí Jugando Wordix, la próxima será! \n";
+        echo "\n";
     }
 
     $partida = [

@@ -387,7 +387,7 @@ function palabraYaJugada($nombreDelJugador, $coleccionDePartidas, $coleccionDePa
 
 //Declaración de variables:
 
-/* INT $opcion, $countPartidas1, $numeroDePartida, $nroDePalabra,$valorEncontrado
+/* INT $opcion, $countPartidas1, $numeroDePartida, $nroDePalabra,$valorEncontrado, $countPalabrasUsadas
    STRING $nombreUser
    ARRAY $partidaJugada, $resumenJugador, $coleccionArray, $coleccionPalabrasMain
    BOOLEAN $validacionDePalabra
@@ -406,6 +406,7 @@ $valorEncontrado = 0;
 $resumenJugador = [];
 $nombreUser = "";
 $validacionDePalabra = false;
+$counPalabrasUsadas = 0;
 
 //PROGRAMA MAIN
 
@@ -413,35 +414,51 @@ do {
     
     $opcion = seleccionarOpcion ();
     
-    switch ($opcion){
+    switch ($opcion){ //Switch es una funcion predefinida de php, que segun la condicion analiza caso por caso, es equivalente a varios if/elseif/else
         case 1: echo "JUGAR WORDIX CON UNA PALABRA ELEGIDA \n";
             $nombreUser = solicitarJugador();
-            $corte = true;
+            $countPalabrasUsadas = 0;
             do{
                 $nroDePalabra = solicitarNumeroEntre(0, (count($coleccionPalabrasMain)-1));
                 $validacionDePalabra = palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra);
                 if(!$validacionDePalabra){
                     $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
-                    // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
                     $countPartidas1 = count($coleccionArray);
                     $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
-                    $corte = false;
                 } 
-                elseif ($validacionDePalabra){
+                else{
                     echo "El jugador ya ha jugado con la palabra seleccionada, intente nuevamente \n";
+                    echo "\n";
+                    $countPalabrasUsadas++;
+                    if ($countPalabrasUsadas == count($coleccionPalabrasMain)){
+                        echo "El jugador ". $nombreUser . " ya utilizo todas las palabras. \n";
+                        echo "\n";
+                        $validacionDePalabra = !$validacionDePalabra;
+                    }
                 }
-            }while($corte);
+            }while($validacionDePalabra);
         break;
         case 2: echo "JUGAR WORDIX CON UNA PALABRA ALEATORIA \n";
             $nombreUser = solicitarJugador();
+            $countPalabrasUsadas = 0;
             do{
-                $nroDePalabra = rand(0,count($coleccionPalabrasMain));
-            }while(palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra));
-            $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
-            // CARGAR LA NUEVA PARTIDA EN LA COLECCIONARRAY DEBERÍA SER EN UN MODULO?
-            $countPartidas1 = count($coleccionArray);
-             $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"],"nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
-
+                $nroDePalabra = rand(0, (count($coleccionPalabrasMain)-1)); //Conocemos el error de seleccion de un numero repetido, que afectaria a $countPalabrasUsadas, charlar posible solucion en correccion
+                $validacionDePalabra = palabraYaJugada($nombreUser, $coleccionArray, $coleccionPalabrasMain, $nroDePalabra);
+                if(!$validacionDePalabra){
+                    $partidaJugada = jugarWordix($coleccionPalabrasMain[$nroDePalabra],$nombreUser);
+                    $countPartidas1 = count($coleccionArray);
+                    $coleccionArray[$countPartidas1] = ["palabraWordix"=> $partidaJugada["palabraWordix"], "nombre"=> $partidaJugada["jugador"],"puntaje"=> $partidaJugada["puntaje"],"intento"=> $partidaJugada["intentos"]];
+                } 
+                else{
+                    echo "\n";
+                    $countPalabrasUsadas++;
+                    if ($countPalabrasUsadas == count($coleccionPalabrasMain)){
+                        echo "El jugador ". $nombreUser . " ya utilizo todas las palabras. \n";
+                        echo "\n";
+                        $validacionDePalabra = !$validacionDePalabra;
+                    }
+                }
+            }while($validacionDePalabra);
         break;
         case 3:
             $numeroDePartida = solicitarNumeroEntre(0, (count($coleccionArray)-1));
